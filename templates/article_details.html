@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title_tag }}{% endblock %}
+{% block content %}
+
+
+<h1>{{ post.title }}</h1>
+<small>By: {{ post.author.last_name }}
+    {{ post.author.first_name }} - <small>{{ post.post_date }}</small>
+    {% if user.is_authenticated %}
+        - <a href="{% url 'edit_post' post.pk %}">(Edit)</a> -
+        <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+    {% else %}
+        <img src="https://i.ytimg.com/vi/w9rCP3JouAM/maxresdefault.jpg" class="img-fluid" alt="YOU ARE NOT ALLOW HERE">
+    {% endif %}
+    </small><br/>
+<hr>
+<br/>
+<p class="text-justify">{{ post.body }}</p>
+<br/><br/>
+<a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+
+
+{% endblock %}

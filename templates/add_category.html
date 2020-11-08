@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Create a New Category{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+    <h1>Add Category...</h1>
+        <br><br>
+    <div class="form-group">
+        <form   method="POST">
+            {% csrf_token %}  <!--  this is a proetccion measure -->
+            {{ form.as_p }}  <!--  form to make a the style of add post  -->
+            <button class="btn btn-secondary">Ok</button>
+        </form>
+    </div>
+{% else %}
+    <img src="https://i.ytimg.com/vi/w9rCP3JouAM/maxresdefault.jpg" class="img-fluid" alt="YOU ARE NOT ALLOW HERE">
+{% endif %}
+{% endblock %}

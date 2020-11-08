@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if category_posts %}
+    <h1>{{ cats }}</h1>
+        <ul>
+        {% for post in category_posts %}
+            <!-- the object_list its the querry set of the list of our blogpost the post its the X-->
+            <li><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> - {{ post.author.last_name }}
+                <!-- article-detal its the name of listview , and beacause we can have a lot of post, post.pk directs -->
+                {{ post.author.first_name }} - <small>{{ post.post_date }}</small>
+                    {% if user.is_authenticated %}
+                        <small>- <a href="{% url 'edit_post' post.pk %}">(Edit)</a> -
+                        <a href="{% url 'delete_post' post.pk %}">(Delete)</a></small>
+                    {% endif %}
+                <br/>
+                {{ post.body|slice:":200" }}</li> <!-- if you whant to use html, add  |safe-->
+        {% endfor %}
+        </ul>
+    {% else %}
+    <h2>Sorry this page dosnt exist</h2>
+{% endif %}
+{% endblock %}

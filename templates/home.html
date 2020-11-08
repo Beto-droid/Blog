@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1>Post</h1>
+
+<ul>
+    {% for post in object_list %}
+        <!-- the object_list its the querry set of the list of our blogpost the post its the X-->
+        <li><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> -
+            <a href="{% url 'category' post.category %}">{{ post.category }}</a> - {{ post.author.last_name }}
+            <!-- article-detal its the name of listview , and beacause we can have a lot of post, post.pk directs -->
+            {{ post.author.first_name }} - <small>{{ post.post_date }}</small>
+                {% if user.is_authenticated %}
+                    <small>- <a href="{% url 'edit_post' post.pk %}">(Edit)</a> -
+                    <a href="{% url 'delete_post' post.pk %}">(Delete)</a></small>
+                {% endif %}
+            <br/>
+            {{ post.body|slice:":200" }}</li> <!-- if you want to use html, add  |safe-->
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
